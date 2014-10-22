@@ -82,7 +82,7 @@ Congradulations, you have just made your first module, give yourself a pat on th
      mkdir -p ~/motd/templates
      touch ~/motd/templates/my_motd.erb
      
- In the /tmp/my_motd.erb file, add some content. 
+ In the ~/motd/my_motd.erb file, add some content. 
  
      You have connected to the following machine
      Hostname:  <%= @hostname %>
@@ -116,5 +116,9 @@ You can verify this by typing in the following command
 
     cat /etc/motd
 
+If you get errors, make sure that `--modulepath` is pointing to the directory where the motd folder is located. 
+You should be able to run the following command and see 1 module (your motd module)
+
+    puppet module list --modulepath=~
 
 In the next workshop, we will learn how to improve this module with puppet-lint
