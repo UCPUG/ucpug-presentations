@@ -1,3 +1,9 @@
+#Slides
+
+http://www.slideshare.net/SpencerOwen/puppet-lint
+
+#Links
+
 http://puppetlabs.com/blog/writing-great-modules-an-introduction
 http://puppet-lint.com
 http://www.devco.net/archives/2012/12/13/simple-puppet-module-structure-redux.php

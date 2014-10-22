@@ -60,7 +60,7 @@ Congradulations, you have just made your first module, give yourself a pat on th
  
 ## Manifests
  
- Edit the file called `init.pp`. This is where puppet looks first for puppet code. 
+ Edit the file called `~/motd/manifests/init.pp`. This is where puppet looks first for puppet code. 
  
  Add the following
  
@@ -68,16 +68,19 @@ Congradulations, you have just made your first module, give yourself a pat on th
  class motd {
    file{"/etc/motd":
      ensure => "file", 
-     content => '/tmp/my_motd.erb',
+     content => template('motd/my_motd.erb'),                                                                                                                                                                                                                                                                                                                         
      mode => '0644',
+      backup => '.puppet-back', 
    }
+   
  }
  ```
  (You may notice that this code does not conform to puppet-lint standards, we will cover that in workshop 2). 
  
- Create a file in /tmp/my_motd.erb
+ Create a file in ~/motd/files/my_motd.erb
  
-     touch /tmp/my_motd.erb
+     mkdir -p ~/motd/templates
+     touch ~/motd/templates/my_motd.erb
      
  In the /tmp/my_motd.erb file, add some content. 
  
@@ -93,21 +96,25 @@ You can [learn more about facter here](http://puppetlabs.com/facter)
 
 Validate your code, and run it. 
 
-    puppet parser validate /tmp/motd/manifests/init.pp ; echo $?
+    puppet parser validate ~/motd/manifests/init.pp ; echo $?
     0
 
 If puppet parser validate exits with code 0 (and doesn't print any warnings, then your manifest is good). 
 
 Apply you code in simulation mode (--noop)
 
-    puppet apply -e  "include motd"  --modulepath=/tmp --debug --noop
+    sudo puppet apply -e  'include motd'  --modulepath=~ --debug --noop
 
 If everything worked, remove the --noop to apply your changes
 
-    puppet apply -e  "include motd"  --modulepath=/tmp --debug
+    sudo puppet apply -e  'include motd'  --modulepath=~ --debug
     
     
 Congratulations, you have now managed a file with puppet!
 
+You can verify this by typing in the following command
 
-In the next workshop, we will learn how to improve this module
+    cat /etc/motd
+
+
+In the next workshop, we will learn how to improve this module with puppet-lint
